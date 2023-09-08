@@ -5,7 +5,7 @@ export default function SectionLoggin(data:DataSectionLoggin){
   
   return (
     <section>
-      <h2>Fazer seção de loggin !</h2>
+      <h2>Desenvolver seção de Loggin !</h2>
     </section>
   )
 }
