@@ -1,6 +1,6 @@
 import SectionEditProduct from "@/components/sections/edit-product/product";
 
-export default function PageLoadingProduct() {
+export default function PageLoadingEditProduct() {
   return (
     <main>
       <SectionEditProduct loading={true} />
