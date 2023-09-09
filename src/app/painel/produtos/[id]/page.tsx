@@ -1,4 +1,4 @@
-import SectionProduct from "@/components/sections/product/product";
+import SectionProduct from "@/components/sections/edit-product/product";
 import { notFound } from "next/navigation";
 
 export type DataPageProduct = {

@@ -1,4 +1,4 @@
-import SectionEditProduct from "@/components/sections/product/product";
+import SectionEditProduct from "@/components/sections/edit-product/product";
 
 export default function PageLoadingProduct() {
   return (
