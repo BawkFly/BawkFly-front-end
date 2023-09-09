@@ -17,10 +17,10 @@ export default function SectionMenuDashBoard(data: DataSectionMenuDashBoard) {
           <Link href="/painel/vendas">Ir para Vendas</Link>
         </li>
         <li>
-          <Link href="/painelprodutos">Ir para Produtos</Link>
+          <Link href="/painel/produtos">Ir para Produtos</Link>
         </li>
         <li>
-          <Link href="/marketplace">Ir para Makertplace</Link>
+          <Link href="/painel/marketplace">Ir para Makertplace</Link>
         </li>
         <li>
           <Link href="/painel/financas">Ir para Finanças</Link>
