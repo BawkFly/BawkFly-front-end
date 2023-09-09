@@ -1,9 +1,9 @@
-import SectionProduct from "@/components/sections/product/product";
+import SectionEditProduct from "@/components/sections/product/product";
 
 export default function PageLoadingProduct() {
   return (
     <main>
-      <SectionProduct loading={true} />
+      <SectionEditProduct loading={true} />
     </main>
   );
 }

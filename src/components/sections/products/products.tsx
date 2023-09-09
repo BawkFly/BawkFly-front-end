@@ -3,13 +3,13 @@ import Link from "next/link";
 
 export type DataSectionProducts = {};
 
-export default function SectionProducts(data: DataSectionProducts) {
+export default function SectionUserProducts(data: DataSectionProducts) {
   const {} = data;
 
   return (
     <section>
       <Container>
-        <h2>Desenvolver Seção Produtos !</h2>
+        <h2>Desenvolver Seção Produtos do Usuario !</h2>
         <Link href="/painel/produtos/0">
           <Button variant="contained">Produto ID = 0 (ERRO)</Button>
         </Link>

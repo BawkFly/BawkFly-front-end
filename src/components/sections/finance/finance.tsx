@@ -1,8 +1,8 @@
 import { Container } from "@mui/material";
 
-export type DataSectionFinance = {};
+export type DataSectionFinances = {};
 
-export default function SectionFinance(data: DataSectionFinance) {
+export default function SectionFinances(data: DataSectionFinances) {
   const {} = data;
 
   return (
