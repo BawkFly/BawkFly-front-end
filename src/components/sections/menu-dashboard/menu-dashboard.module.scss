@@ -1,0 +1,76 @@
+#SectionMenuDashBoard {
+  height: 100%;
+  width: 80px;
+  background-color: #1e1e1e;
+  transition: all 0.3s;
+  padding: 15px;
+  border-right: solid 1px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .headerMenu {
+    display: flex;
+    gap: 5px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border-bottom: solid 2px #343434;
+
+    .mainIcon {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      padding: 10px;
+      rotate: 90deg;
+      transition: all 0.3s;
+    }
+
+    .logo {
+      width: 100px;
+    }
+  }
+
+  .bodyMenu {
+    .menuOption {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: whitesmoke;
+      overflow-x: hidden;
+      text-decoration: none;
+      margin-bottom: 15px;
+
+      .containerIcon {
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        border: solid 2px whitesmoke;
+        border-radius: 15px;
+        padding: 10px;
+        transition: all .3s;
+        .icon {
+          width: 100%;
+        }
+      }
+
+      
+
+      &.active, &:hover {
+        .containerIcon {
+          background-color: whitesmoke;
+          color: #1e1e1e;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    width: 225px;
+
+    .headerMenu {
+      .mainIcon {
+        rotate: -90deg;
+      }
+    }
+  }
+}
