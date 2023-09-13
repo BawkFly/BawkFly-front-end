@@ -22,7 +22,7 @@ export default function SectionLoggin(data:DataSectionLoggin){
           </form>
           <Typography variant="body2" style={{ marginTop: '20px' }}>
             Don't have an account?{' '}
-            <Link href="@/components/sections/sign-up/sign-up">Sign up</Link>
+            <Link href="/auth/sign-up">Sign up</Link>
           </Typography>
         </Paper>
       </Container>
