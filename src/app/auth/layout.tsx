@@ -12,11 +12,11 @@ export default function LayoutDashboard(data: DataLayoutDashboard) {
   return (
     <main className={style.main}>
       <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
+        <Grid container spacing={6}>
+          <Grid item xs={7}>
             <SectionQuickPresentation />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             {children}
           </Grid>
         </Grid>
