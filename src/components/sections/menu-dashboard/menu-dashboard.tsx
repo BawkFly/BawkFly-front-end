@@ -13,13 +13,12 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WbIncandescentIcon from "@mui/icons-material/WbIncandescent";
 import WbIncandescentOutlinedIcon from "@mui/icons-material/WbIncandescentOutlined";
-import { useRouter } from "next/router";
 
 import logo from "@/assets/imgs/logo.svg";
 import logoDark from "@/assets/imgs/logo-dark.svg";
+import { usePathname } from "next/navigation";
 
 export type DataSectionMenuDashBoard = {
-  initialPage: string;
 };
 
 type DataMenuOptionPage = {
@@ -50,7 +49,7 @@ function MenuOptionPage({
           className: `${icon.props} ${style.icon}`,
         })}
       </div>
-      <span>{text}</span>
+      <span className={style.containerText}>{text}</span>
     </Link>
   );
 }
@@ -61,11 +60,18 @@ type DataAvatar = {
 };
 
 function Avatar({ img, name }: DataAvatar) {
-  return <div></div>;
+  return (
+    <Link className={style.containerAvatar} href="/painel/perfil">
+      <span className={style.icon}>{name?.at(0)?.toLocaleUpperCase()}</span>
+      <span className={style.containerName}>{name}</span>
+    </Link>
+  );
 }
 
 export default function SectionMenuDashBoard(data: DataSectionMenuDashBoard) {
-  const { initialPage } = data;
+  const {} = data;
+
+  const initialPage = usePathname().split("/").at(2) ?? "";
 
   const [page, setPage] = React.useState<string>(initialPage);
   const [themeMode, setThemeMode] = React.useState<"light" | "dark">("dark");
@@ -142,11 +148,13 @@ export default function SectionMenuDashBoard(data: DataSectionMenuDashBoard) {
             setThemeMode(themeMode === "light" ? "dark" : "light");
           }}
         >
-          {themeMode === "dark" && <WbIncandescentIcon />}
-          {themeMode === "light" && <WbIncandescentOutlinedIcon />}
+          <div className={style.icon}>
+            {themeMode === "dark" && <WbIncandescentIcon />}
+            {themeMode === "light" && <WbIncandescentOutlinedIcon />}
+          </div>
+          <span className={style.containerText}>Claro/Escuro</span>
         </button>
-
-        <Link href="/painel/perfil"></Link>
+        <Avatar name="Takeda" img="" />
       </div>
     </section>
   );

@@ -21,7 +21,6 @@
       width: 50px;
       height: 50px;
       padding: 10px;
-      rotate: 90deg;
       transition: all 0.3s;
     }
 
@@ -42,15 +41,20 @@
 
       .containerIcon {
         flex-shrink: 0;
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         border: solid 2px var(--tertiary-color);
         border-radius: 15px;
         padding: 10px;
         transition: all 0.3s;
+
         .icon {
           width: 100%;
         }
+      }
+
+      .containerText {
+        flex-shrink: 0;
       }
 
       &.active,
@@ -69,19 +73,70 @@
 
     .buttonChangeThemeMode {
       cursor: pointer;
-      width: 50px;
-      height: 50px;
-      border: solid 2px var(--tertiary-color);
-      border-radius: 15px;
-      padding: 10px;
-      transition: all 0.3s;
-      background-color: var(--secundary-color);
-      color: var(--tertiary-color);
+      display: flex;
+      align-items: center;
+      overflow-x: hidden;
+      width: 100%;
+      border: none;
+      padding: 0;
       margin-bottom: 15px;
+      background-color: transparent;
+      gap: 15px;
+
+      .icon {
+        width: 48px;
+        height: 48px;
+        border: solid 2px var(--tertiary-color);
+        border-radius: 15px;
+        padding: 10px;
+        background-color: var(--secundary-color);
+        color: var(--tertiary-color);
+        transition: all 0.3s;
+      }
+
+      .containerText {
+        flex-shrink: 0;
+        font-size: 1rem;
+      }
 
       &:hover {
-        background-color: var(--tertiary-color);
-        color: var(--secundary-color);
+        .icon {
+          background-color: var(--tertiary-color);
+          color: var(--secundary-color);
+        }
+      }
+    }
+
+    .containerAvatar {
+      display: flex;
+      text-decoration: none;
+      align-items: center;
+      overflow-x: hidden;
+      gap: 15px;
+      color: black;
+
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        font-weight: bolder;
+        width: 48px;
+        height: 48px;
+        border-radius: 100%;
+        background-color: var(--primary-color);
+        flex-shrink: 0;
+        transition: all 0.3s;
+      }
+
+      .containerName {
+        flex-shrink: 0;
+      }
+
+      &:hover {
+        .icon {
+          background-color: var(--primary-color-darker);
+        }
       }
     }
   }
@@ -91,7 +146,7 @@
 
     .headerMenu {
       .mainIcon {
-        rotate: -90deg;
+        rotate: 90deg;
       }
     }
   }
