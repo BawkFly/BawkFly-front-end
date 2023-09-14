@@ -82,6 +82,7 @@
       margin-bottom: 15px;
       background-color: transparent;
       gap: 15px;
+      color: var(--tertiary-color);
 
       .icon {
         width: 48px;
@@ -113,13 +114,13 @@
       align-items: center;
       overflow-x: hidden;
       gap: 15px;
-      color: black;
+      color: var(--tertiary-color);
 
       .icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: black;
+        color: var(--tertiary-color);
         font-weight: bolder;
         width: 48px;
         height: 48px;
