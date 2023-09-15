@@ -1,30 +1,123 @@
-import React from 'react';
-import { Container, Paper, Typography, TextField, Button } from '@mui/material';
-import Link from 'next/link';
+"use client";
 
-export type DataSectionLoggin = {}
+import style from "./login.module.scss";
+import React, { ChangeEvent, useState } from "react";
+import Link from "next/link";
+import {
+  emailIsValid,
+  passwordIsMinimumValid,
+} from "@/helpers/validation/validation";
+import ElementFormInput from "@/components/elements/form-input/form-input";
+import { Button } from "@mui/material";
 
-export default function SectionLoggin(data:DataSectionLoggin){
+export type DataSectionLogin = {};
+
+export default function SectionLogin(data: DataSectionLogin) {
   const {} = data;
-  
+
+  type FormsField = {
+    value: string;
+    valid: boolean;
+    invalid: boolean;
+  };
+
+  type DataForms = {
+    email: FormsField;
+    password: FormsField;
+  };
+
+  const [forms, setForms] = useState<DataForms>({
+    email: {
+      value: "",
+      valid: false,
+      invalid: false,
+    },
+    password: {
+      value: "",
+      valid: false,
+      invalid: false,
+    },
+  });
+
+  const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    const email = event.target.value;
+
+    forms.email = {
+      value: email,
+      valid: !!email && emailIsValid(email),
+      invalid: false,
+    };
+    setForms({ ...forms });
+  };
+
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    const password = event.target.value;
+
+    forms.password = {
+      value: password,
+      valid: false,
+      invalid: false,
+    };
+    setForms({ ...forms });
+  };
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const { email, password } = forms;
+
+    email.invalid = !emailIsValid(email.value);
+    password.invalid = !passwordIsMinimumValid(password.value);
+
+    if (email.invalid || password.invalid) {
+      setForms({ email, password });
+      return;
+    }
+  };
+
   return (
-    <Container maxWidth="sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}>
-        <Paper elevation={3} style={{ padding: '20px' }}>
-          <Typography variant="h4" gutterBottom>
-            Login
-          </Typography>
-          <form>
-            <TextField label="Username" fullWidth margin="normal" />
-            <TextField label="Password" fullWidth margin="normal" type="password" />
-            <Button variant="contained" color="primary" fullWidth type="submit">
+    <section id={style.SectionLoggin}>
+      <h2 className={style.title}>Login In</h2>
+      <p className={style.text}>Welcome back, please login to your account.</p>
+      <form className={style.form} onSubmit={onSubmit}>
+        <ElementFormInput
+          type="email"
+          placeholder="Seu Email"
+          onChange={onChangeEmail}
+          value={forms.email.value}
+          valid={forms.email.valid}
+          invalid={forms.email.invalid}
+        />
+        <ElementFormInput
+          type="password"
+          placeholder="Sua Senha"
+          onChange={onChangePassword}
+          value={forms.password.value}
+          valid={forms.password.valid}
+          invalid={forms.password.invalid}
+        />
+        <div className={style.containerButtons}>
+          <div className={style.containerButton}>
+            <Button
+              className={`${style.button} ${style.buttonLoggin}`}
+              type="submit"
+              variant="contained"
+            >
               Login
             </Button>
-          </form>
-          <Typography variant="body2" style={{ marginTop: '20px' }}>
-            Don't have an account?{' '}
-            <Link href="/auth/sign-up">Sign up</Link>
-          </Typography>
-        </Paper>
-      </Container>
-  )
+          </div>
+          <Link href="/auth/sign-up" className={style.containerButton}>
+            <Button
+              className={`${style.button} ${style.buttonSiginUp}`}
+              color="primary"
+              type="submit"
+              variant="outlined"
+            >
+              Sign Up
+            </Button>
+          </Link>
+        </div>
+      </form>
+    </section>
+  );
 }
