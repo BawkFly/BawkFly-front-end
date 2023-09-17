@@ -17,6 +17,7 @@ import WbIncandescentOutlinedIcon from "@mui/icons-material/WbIncandescentOutlin
 import logo from "@/assets/imgs/logo.svg";
 import logoDark from "@/assets/imgs/logo-dark.svg";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export type DataSectionMenuDashBoard = {
 };
@@ -74,7 +75,7 @@ export default function SectionMenuDashBoard(data: DataSectionMenuDashBoard) {
   const initialPage = usePathname().split("/").at(2) ?? "";
 
   const [page, setPage] = React.useState<string>(initialPage);
-  const [themeMode, setThemeMode] = React.useState<"light" | "dark">("dark");
+  const [themeMode, setThemeMode] = React.useState<"light" | "dark">("light");
 
   useEffect(() => {
     const root = document.documentElement;
@@ -96,8 +97,10 @@ export default function SectionMenuDashBoard(data: DataSectionMenuDashBoard) {
   return (
     <section id={style.SectionMenuDashBoard}>
       <div className={style.headerMenu}>
-        <img className={style.mainIcon} src={mainIcon.src} alt="Icone" />
-        <img
+        <Image width={100} height='100' className={style.mainIcon} src={mainIcon.src} alt="Icone" />
+        <Image
+          width={50}
+          height= '50'
           className={style.logo}
           src={themeMode === "light" ? logo.src : logoDark.src}
           alt="Logo"
