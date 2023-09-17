@@ -1,4 +1,4 @@
-import SectionProducts from "@/components/sections/products/products";
+import SectionProducts from "@/components/sections/products/productsItem";
 import { Button } from "@mui/material";
 import Link from "next/link";
 

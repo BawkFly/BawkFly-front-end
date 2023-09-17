@@ -1,10 +1,13 @@
-import { Container, Button } from "@mui/material";
+import { Container, Button, Grid } from "@mui/material";
 import Link from "next/link";
+import ProductItem, { ProductItemProps } from "@/components/sections/products/productsItem"; // Import the ProductItem component
 
-export type DataSectionProducts = {};
+export type DataSectionProducts = {
+  userProducts: ProductItemProps[]; // Assuming you pass userProducts as a prop
+};
 
 export default function SectionUserProducts(data: DataSectionProducts) {
-  const {} = data;
+  const { userProducts } = data;
 
   return (
     <section>
@@ -16,6 +19,19 @@ export default function SectionUserProducts(data: DataSectionProducts) {
         <Link href="/painel/produtos/1">
           <Button variant="contained">Produto ID = 1</Button>
         </Link>
+
+        {/* Product Listing Section */}
+        <Grid container spacing={2}>
+          {userProducts.map((product, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4}>
+              <ProductItem
+                name={product.name}
+                description={product.description}
+                image={product.image}
+              />
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </section>
   );

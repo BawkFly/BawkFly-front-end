@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 export default function PageProducts() {
   return (
     <main>
-      <SectionUserProducts />
+      <SectionUserProducts userProducts={[]} />
       <Link href="/painel/produtos/add-produto">
         <Button variant="contained">Add - Produto</Button>
       </Link>
