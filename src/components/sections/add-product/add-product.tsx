@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import {
   Container,
   Typography,
@@ -18,54 +18,98 @@ export type DataSectionAddProduct = {};
 
 
 export default function SectionAddProduct(data: DataSectionAddProduct) {
-  const [productName, setProductName] = useState('');
-  const [productDescription, setProductDescription] = useState('');
-  const [productImage, setProductImage] = useState<File | null>(null);
-  const [sellerName, setSellerName] = useState('');
-  const [sellerEmail, setSellerEmail] = useState('');
-  const [sellerPhoneNumber, setSellerPhoneNumber] = useState('');
-  const [category, setCategory] = useState('');
-  const [format, setFormat] = useState('');
-  const [language, setLanguage] = useState('');
-  const [price, setPrice] = useState('');
+  type FormField<T> = {
+    value:T,
+    valid:boolean,
+    invalid:boolean
+  }
+  
+  type FormProduct = {
+    productName:FormField<string>,
+    productDescription:FormField<string>,
+    productImage:FormField<File | null>,
+    sellerName:FormField<string>,
+    sellerEmail:FormField<string>,
+    sellerPhoneNumber:FormField<string>,
+    category:FormField<string>,
+    format:FormField<string>,
+    language:FormField<string>,
+    price:FormField<string>,
+    products:FormField<ProductItemProps[]>,
+    
+  }
+  const [form,setForm] = useState<FormProduct>({
+    productName:{value:"",valid:false,invalid:false},
+    productDescription:{value:"",valid:false,invalid:false},
+    productImage:{value:null,valid:false,invalid:false},
+    sellerName:{value:"",valid:false,invalid:false},
+    sellerEmail:{value:"",valid:false,invalid:false},
+    sellerPhoneNumber:{value:"",valid:false,invalid:false},
+    category:{value:"",valid:false,invalid:false},
+    format:{value:"",valid:false,invalid:false},
+    language:{value:"",valid:false,invalid:false},
+    price:{value:"",valid:false,invalid:false},
+    products:{value:([]),valid:false,invalid:false},
+
+  });
+
+  const onSubmit=(event:FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(form);
+  }
+
+  const onChangeName = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.productName={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangeDescrition = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.productDescription={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangeProductImage = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.files[0];
+    form.productImage={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangeSellerName = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.sellerName={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangeSellerEmail = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.sellerEmail={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangeSellerPhoneNumber = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.sellerPhoneNumber={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangeCategory = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.category={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangeFormat = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.format={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangeLanguage = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.language={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  const onChangePrice = (event:ChangeEvent<HTMLInputElement>) => {
+    const newValue=event.target.value;
+    form.price={value:newValue,valid:false,invalid:false}
+    setForm({...form})
+  }
+  
   const [products, setProducts] = useState<ProductItemProps[]>([]); // Maintain a list of products
-
-  const handleProductSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Create a new product object
-let newProduct: ProductItemProps = {
-  name: productName,
-  description: productDescription,
-  image: '', // Initialize with an empty string
-};
-
-if (productImage) {
-  // If productImage is not null, create the URL
-  newProduct.image = URL.createObjectURL(productImage); // Convert the image file to a URL
-}
-
-// Add the new product to the list of products
-setProducts([...products, newProduct]);
-    // Reset form fields
-    setProductName('');
-  setProductDescription('');
-  setProductImage(null);
-  setSellerName('');
-  setSellerEmail('');
-  setSellerPhoneNumber('');
-  setCategory('');
-  setFormat('');
-  setLanguage('');
-  setPrice('');
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      // Get the selected image file
-      setProductImage(e.target.files[0]);
-    }
-  };
 
   return (
     <section>
@@ -73,7 +117,7 @@ setProducts([...products, newProduct]);
         <Typography variant="h4" gutterBottom>
           Add a Product
         </Typography>
-        <form onSubmit={handleProductSubmit}>
+        <form onSubmit={onSubmit}>
           <Grid container spacing={2}>
             {/* Product Image */}
             <Grid item xs={4}>
@@ -82,7 +126,7 @@ setProducts([...products, newProduct]);
                 <Input
                   id="product-image"
                   type="file"
-                  onChange={handleImageChange}
+                  onChange={onChangeProductImage}
                   required
                 />
               </FormControl>
@@ -94,8 +138,8 @@ setProducts([...products, newProduct]);
                 label="Product Name"
                 fullWidth
                 margin="normal"
-                value={productName}
-                onChange={(e) => setProductName(e.target.value)}
+                value={form.productName.value}
+                onChange={onChangeName}
                 required
               />
               <TextField
@@ -104,8 +148,8 @@ setProducts([...products, newProduct]);
                 margin="normal"
                 multiline
                 rows={4}
-                value={productDescription}
-                onChange={(e) => setProductDescription(e.target.value)}
+                value={form.productDescription.value}
+                onChange={onChangeDescrition}
                 required
               />
             </Grid>
@@ -117,8 +161,8 @@ setProducts([...products, newProduct]);
             label="Seller Name"
             fullWidth
             margin="normal"
-            value={sellerName}
-            onChange={(e) => setSellerName(e.target.value)}
+            value={form.sellerName.value}
+            onChange={onChangeSellerName}
             required
           />
           <TextField
@@ -126,8 +170,8 @@ setProducts([...products, newProduct]);
             fullWidth
             margin="normal"
             type="email"
-            value={sellerEmail}
-            onChange={(e) => setSellerEmail(e.target.value)}
+            value={form.sellerEmail.value}
+            onChange={onChangeSellerEmail}
             required
           />
           <TextField
@@ -135,8 +179,8 @@ setProducts([...products, newProduct]);
             fullWidth
             margin="normal"
             type="tel"
-            value={sellerPhoneNumber}
-            onChange={(e) => setSellerPhoneNumber(e.target.value)}
+            value={form.sellerPhoneNumber.value}
+            onChange={onChangeSellerPhoneNumber}
             required
           />
 
@@ -145,8 +189,8 @@ setProducts([...products, newProduct]);
           <Select
             label="Category"
             fullWidth
-            value={category}
-            onChange={(e) => setCategory(e.target.value as string)}
+            value={form.category.value}
+            onChange={onChangeCategory}
             required
           >
             <MenuItem value="Electronics">Electronics</MenuItem>
@@ -156,16 +200,16 @@ setProducts([...products, newProduct]);
             label="Format"
             fullWidth
             margin="normal"
-            value={format}
-            onChange={(e) => setFormat(e.target.value)}
+            value={form.format.value}
+            onChange={onChangeFormat}
             required
           />
           <TextField
             label="Language"
             fullWidth
             margin="normal"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
+            value={form.price.value}
+            onChange={onChangePrice}
             required
           />
           <TextField
@@ -173,8 +217,8 @@ setProducts([...products, newProduct]);
             fullWidth
             margin="normal"
             type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            value={form.price.value}
+            onChange={onChangePrice}
             required
           />
 
@@ -184,8 +228,6 @@ setProducts([...products, newProduct]);
         </form>
       </Container>
 
-      
-      
     </section>
   );
 }
