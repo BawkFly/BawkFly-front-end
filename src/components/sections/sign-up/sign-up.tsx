@@ -1,135 +1,204 @@
-// ./src/components/sections/sign-up/sign-up.tsx
-"use client"
-// ./src/components/sections/sign-up/sign-up.tsx
-import React, { useState } from 'react';
-import { Container, Paper, Typography, TextField, Button } from '@mui/material';
-import Link from 'next/link';
+"use client";
+
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import style from "./sign-up.module.scss";
+import ElementFormInput from "@/components/elements/form-input/form-input";
+import { Button } from "@mui/material";
+import Link from "next/link";
+import {
+  emailIsValid,
+  nameIsMinimumValid,
+  passwordIsValid,
+  phoneNumberIsValid,
+} from "@/helpers/validation/validation";
+import { phoneNumberMask } from "@/helpers/mask/maks";
 
 export type DataSectionSignUp = {};
 
-const SignupPage: React.FC<DataSectionSignUp> = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    cellphone: '',
-  });
+export default function SectionSignUp(data: DataSectionSignUp) {
+  const {} = data;
 
-  const [errors, setErrors] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    cellphone: '',
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  type FormsField = {
+    value: string;
+    valid: boolean;
+    invalid: boolean;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  type DataForms = {
+    name: FormsField;
+    email: FormsField;
+    phoneNumber: FormsField;
+    password: FormsField;
+    confirmPassword: FormsField;
+  };
 
-    const newErrors = {
-      fullName: formData.fullName ? '' : 'Full Name is required',
-      email: formData.email ? '' : 'Email is required',
-      password: formData.password ? '' : 'Password is required',
-      confirmPassword:
-        formData.confirmPassword === formData.password
-          ? ''
-          : 'Passwords do not match',
-      cellphone:
-        /^\d{13}$/.test(formData.cellphone)
-          ? ''
-          : 'Cellphone must be a 13-digit number',
-    };
+  const [form, setForm] = useState<DataForms>({
+    name: { value: "", valid: false, invalid: false },
+    email: { value: "", valid: false, invalid: false },
+    phoneNumber: { value: "", valid: false, invalid: false },
+    password: { value: "", valid: false, invalid: false },
+    confirmPassword: { value: "", valid: false, invalid: false },
+  });
 
-    setErrors(newErrors);
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    if (!Object.values(newErrors).some((error) => error !== '')) {
-      console.log('Form submitted:', formData);
+    const { name, email, phoneNumber, password, confirmPassword } = form;
+
+    name.valid = nameIsMinimumValid(name.value);
+    email.valid = emailIsValid(email.value);
+    phoneNumber.valid = phoneNumberIsValid(phoneNumber.value);
+    password.valid = passwordIsValid(password.value);
+    confirmPassword.valid = password.value === confirmPassword.value;
+
+    const valid =
+      name.valid &&
+      email.valid &&
+      phoneNumber.valid &&
+      password.valid &&
+      confirmPassword.valid;
+
+    if (!valid) {
+      name.invalid = !nameIsMinimumValid(name.value);
+      email.invalid = !emailIsValid(email.value);
+      phoneNumber.invalid = !phoneNumberIsValid(phoneNumber.value);
+      password.invalid = !passwordIsValid(password.value);
+      confirmPassword.invalid = password.value !== confirmPassword.value;
+
+      setForm({ name, email, phoneNumber, password, confirmPassword });
+      return;
     }
   };
 
-  return (
-    <Container maxWidth="sm" style={{ marginTop: '50px' }}>
-      <Paper elevation={3} style={{ padding: '20px' }}>
-        <Typography variant="h4" gutterBottom>
-          Sign Up
-        </Typography>
-        <form onSubmit={handleSubmit}>
-        <TextField
-          label="Full Name"
-          fullWidth
-          margin="normal"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleInputChange}
-          error={!!errors.fullName}
-          helperText={errors.fullName}
-          required
-        />
-        <TextField
-          label="Email"
-          fullWidth
-          margin="normal"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          error={!!errors.email}
-          helperText={errors.email}
-          required
-        />
-        <TextField
-          label="Password"
-          fullWidth
-          margin="normal"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          error={!!errors.password}
-          helperText={errors.password}
-          required
-        />
-        <TextField
-          label="Confirm Password"
-          fullWidth
-          margin="normal"
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleInputChange}
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword}
-            required
-          />
-          <TextField
-            label="Cellphone"
-            fullWidth
-            margin="normal"
-            type="tel"
-            name="cellphone"
-            value={formData.cellphone}
-            onChange={handleInputChange}
-            error={!!errors.cellphone}
-            helperText={errors.cellphone}
-            required
-          />
-          <Button variant="contained" color="primary" fullWidth type="submit">
-            Sign Up
-          </Button>
-        </form>
-        <Typography variant="body2" style={{ marginTop: '20px' }}>
-          Already have an account?{' '}
-          <Link href="/login">Login</Link>
-        </Typography>
-      </Paper>
-    </Container>
-  );
-};
+  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
 
-export default SignupPage;
+    form.name = {
+      value: newValue,
+      valid: !!newValue && nameIsMinimumValid(newValue),
+      invalid: !!newValue && !nameIsMinimumValid(newValue),
+    };
+
+    setForm({ ...form });
+  };
+
+  const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+
+    form.email = {
+      value: newValue,
+      valid: !!newValue && emailIsValid(newValue),
+      invalid: !!newValue && !emailIsValid(newValue),
+    };
+
+    setForm({ ...form });
+  };
+
+  const onChangePhoneNumber = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = phoneNumberMask(event.target.value);
+
+    form.phoneNumber = {
+      value: newValue,
+      valid: !!newValue && phoneNumberIsValid(newValue),
+      invalid: !!newValue && !phoneNumberIsValid(newValue),
+    };
+
+    setForm({ ...form });
+  };
+
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+
+    form.confirmPassword = { value: "", valid: false, invalid: false };
+
+    form.password = {
+      value: newValue,
+      valid: !!newValue && passwordIsValid(newValue),
+      invalid: !!newValue && !passwordIsValid(newValue),
+    };
+
+    setForm({ ...form });
+  };
+
+  const onChangeConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+
+    form.confirmPassword = {
+      value: newValue,
+      valid: !!newValue && newValue === form.password.value,
+      invalid: !!newValue && newValue !== form.password.value,
+    };
+
+    setForm({ ...form });
+  };
+
+  return (
+    <section id={style.SectionSignUp}>
+      <h2 className={style.title}>Create an account</h2>
+      <p className={style.text}>Welcome to bawk, create your account!</p>
+      <form className={style.form} onSubmit={onSubmit}>
+        <ElementFormInput
+          type="text"
+          placeholder="Nome"
+          onChange={onChangeName}
+          value={form.name.value}
+          valid={form.name.valid}
+          invalid={form.name.invalid}
+        />
+        <ElementFormInput
+          type="email"
+          placeholder="Email"
+          onChange={onChangeEmail}
+          value={form.email.value}
+          valid={form.email.valid}
+          invalid={form.email.invalid}
+        />
+        <ElementFormInput
+          type="tel"
+          placeholder="Numero de Telefone"
+          onChange={onChangePhoneNumber}
+          value={form.phoneNumber.value}
+          valid={form.phoneNumber.valid}
+          invalid={form.phoneNumber.invalid}
+        />
+        <ElementFormInput
+          type="password"
+          placeholder="Senha"
+          onChange={onChangePassword}
+          value={form.password.value}
+          valid={form.password.valid}
+          invalid={form.password.invalid}
+        />
+        <ElementFormInput
+          type="password"
+          placeholder="Confirmação de senha"
+          onChange={onChangeConfirmPassword}
+          value={form.confirmPassword.value}
+          valid={form.confirmPassword.valid}
+          invalid={form.confirmPassword.invalid}
+        />
+        <div className={style.containerButtons}>
+          <div className={style.containerButton}>
+            <Button
+              className={`${style.button} ${style.buttonSiginUp}`}
+              type="submit"
+              variant="contained"
+            >
+              Sign Up
+            </Button>
+          </div>
+          <Link href="/auth/login" className={style.containerButton}>
+            <Button
+              className={`${style.button} ${style.buttonLoggin}`}
+              color="primary"
+              type="submit"
+              variant="outlined"
+            >
+              Login
+            </Button>
+          </Link>
+        </div>
+      </form>
+    </section>
+  );
+}

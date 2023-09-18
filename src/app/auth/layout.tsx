@@ -13,7 +13,7 @@ export default function LayoutDashboard(data: DataLayoutDashboard) {
     <main className={style.main}>
       <Container>
         <Grid container spacing={6}>
-          <Grid item xs={7}>
+          <Grid item xs={7} display="flex" alignItems="center">
             <SectionQuickPresentation />
           </Grid>
           <Grid item xs={5}>
