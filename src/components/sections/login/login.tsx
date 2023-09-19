@@ -11,7 +11,7 @@ import ElementFormInput from "@/components/elements/form-input/form-input";
 import { Button } from "@mui/material";
 import Api from "@/services/api/api";
 import { setUserLoginTokens } from "@/services/auth/auth";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export type DataSectionLogin = {};
 
@@ -83,11 +83,17 @@ export default function SectionLogin(data: DataSectionLogin) {
       .getUserLogin({ email: email.value, password: password.value })
       .then((response) => {
         console.log(response);
-        const {access_token,refresh_token,token_type} = response;
-        setUserLoginTokens(access_token,token_type,refresh_token);
-        router.replace("/painel")
+        const { access_token, refresh_token, token_type } = response;
+        setUserLoginTokens(access_token, token_type, refresh_token);
+        router.replace("/painel");
       })
       .catch((error) => {
+        email.invalid = true;
+        email.valid = false;
+
+        password.invalid = true;
+        password.valid = false;
+        setForms({ email, password });
         console.log(error);
       });
   };

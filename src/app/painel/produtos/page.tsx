@@ -1,15 +1,9 @@
 import SectionUserProducts from "@/components/sections/user-products/products";
-import Link from "next/link";
-import { Button } from "@mui/material";
 
 export default function PageProducts() {
   return (
-      <SectionUserProducts />
     <main>
-      <SectionUserProducts userProducts={[]} />
-      <Link href="/painel/produtos/add-produto">
-        <Button variant="contained">Add - Produto</Button>
-      </Link>
+      <SectionUserProducts/>
     </main>
   );
 }
