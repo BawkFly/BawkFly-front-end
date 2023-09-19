@@ -1,78 +1,53 @@
 "use client";
-import Link from "next/link";
+
 import { Typography, Box, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { ProductCard } from "./productCard";
-import { api } from "@/services/api";
+import ProductCard from "./productCard";
 import { getUserLoginAccessToken } from "@/services/auth/auth";
 import { useRouter } from "next/navigation";
-
-const productsss = [
-  {
-    name: "Teste",
-    description: "Oto teste ",
-    picture: undefined,
-  },
-  {
-    name: "Teste",
-    description: "Oto teste ",
-    picture: undefined,
-  },
-  {
-    name: "Teste",
-    description: "Oto teste ",
-    picture: undefined,
-  },
-  {
-    name: "Teste",
-    description: "Oto teste ",
-    picture: undefined,
-  },
-  {
-    name: "Teste",
-    description: "Oto teste ",
-    picture: undefined,
-  },
-  {
-    name: "Teste",
-    description: "Oto teste ",
-    picture: undefined,
-  },
-  {
-    name: "Teste",
-    description: "Oto teste ",
-    picture: undefined,
-  },
-];
+import Api from "@/services/api/api";
+import { ResponseGetProduct } from "@/services/api/endpoints/produtct";
 
 export default function SectionUserProducts() {
   const router = useRouter();
 
-  const [products, setProducts] = useState(productsss);
+  const [token, setToken] = useState<string>("");
+  const [products, setProducts] = useState<Array<ResponseGetProduct>>([]);
+
+  const onDeleteProduct = (id: string) => {
+    Api.private
+      .deleteProduct(token, id)
+      .then((response) => {
+        router.refresh();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   useEffect(() => {
     getUserLoginAccessToken()
       .then((token) => {
         console.log(`Token Recebido: ${token}`);
+        setToken(token);
       })
       .catch((error) => {
         console.error(error);
         router.replace("/auth/login");
       });
-
-    async function getProducts() {
-      const data = await api.get("/product");
-
-      return data;
-    }
-
-    const data = getProducts();
-
-    console.log(data);
-
-    setProducts(productsss);
   }, []);
+
+  useEffect(() => {
+    Api.private
+      .getProducts(token)
+      .then((response) => {
+        setProducts(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [token]);
 
   return (
     <Box
@@ -152,12 +127,15 @@ export default function SectionUserProducts() {
           gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
         }}
       >
-        {products.map((product, index) => (
+        {products.map(({ name, description, id }, index) => (
           <ProductCard
             key={index}
-            name={product.name}
-            description={product.description}
-            picture={product.picture}
+            id={id}
+            name={name}
+            description={description}
+            picture={""}
+            link={`produtos/${id}`}
+            onDelete={onDeleteProduct}
           />
         ))}
       </Box>

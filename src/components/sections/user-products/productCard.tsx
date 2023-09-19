@@ -4,14 +4,19 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
-interface productCardProps {
+import Link from "next/link";
+interface ProductCardProps {
+  id: string;
   picture: any;
   name: string;
   description: string | undefined;
+  link: string;
+  onDelete: (id: string) => void;
 }
 
-export const ProductCard = (data: productCardProps) => {
+export default function (data: ProductCardProps) {
+  const { id, name, description, picture, onDelete, link } = data;
+
   return (
     <Card sx={{ width: "auto", borderRadius: "12px", margin: "10px" }}>
       <CardMedia
@@ -21,16 +26,25 @@ export const ProductCard = (data: productCardProps) => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {data.name}
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {data.description}
+          {description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Editar</Button>
-        <Button size="small">Excluir</Button>
+        <Link href={link}>
+          <Button size="small">Editar</Button>
+        </Link>
+        <Button
+          size="small"
+          onClick={() => {
+            onDelete(id);
+          }}
+        >
+          Excluir
+        </Button>
       </CardActions>
     </Card>
   );
-};
+}
