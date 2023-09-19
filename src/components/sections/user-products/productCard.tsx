@@ -5,38 +5,48 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
+  id: string;
   picture: any;
   name: string;
   description: string | undefined;
   link: string;
+  onDelete: (id: string) => void;
 }
 
 export default function (data: ProductCardProps) {
-  const { name, description, link, picture } = data;
+  const { id, name, description, picture, onDelete, link } = data;
 
   return (
-    <Link href={link} style={{ textDecoration: "none" }} title={name}>
-      <Card sx={{ width: "auto", borderRadius: "12px", margin: "10px" }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image="https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-        </CardContent>
-        <CardActions>
+    <Card sx={{ width: "auto", borderRadius: "12px", margin: "10px" }}>
+      <CardMedia
+        component="img"
+        height="140"
+        image="https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Link href={link}>
           <Button size="small">Editar</Button>
-          <Button size="small">Excluir</Button>
-        </CardActions>
-      </Card>
-    </Link>
+        </Link>
+        <Button
+          size="small"
+          onClick={() => {
+            onDelete(id);
+          }}
+        >
+          Excluir
+        </Button>
+      </CardActions>
+    </Card>
   );
 }

@@ -36,7 +36,7 @@ export async function getProducts(
 
 export enum ResponsePostProduct {
   OK = 200,
-  ERROR = 400
+  ERROR = 400,
 }
 
 export type BodyPostProduct = {
@@ -68,4 +68,26 @@ export async function postProduct(
   if (!response.ok) throw new Error("Error em Get Products");
 
   return ResponsePostProduct.OK;
+}
+
+export enum ResponseDeleteProduct {
+  OK = 200,
+  ERROR = 400,
+}
+
+export async function deleteProduct(
+  accessToken: string,
+  id: string
+): Promise<ResponseDeleteProduct> {
+  const response = await fetch(`${API_BASE_URL}/product?id=${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-cache",
+  });
+
+  if (!response.ok) throw new Error("Error em Get Products");
+
+  return ResponseDeleteProduct.OK;
 }

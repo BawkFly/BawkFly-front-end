@@ -11,27 +11,42 @@ import { ResponseGetProduct } from "@/services/api/endpoints/produtct";
 export default function SectionUserProducts() {
   const router = useRouter();
 
+  const [token, setToken] = useState<string>("");
   const [products, setProducts] = useState<Array<ResponseGetProduct>>([]);
+
+  const onDeleteProduct = (id: string) => {
+    Api.private
+      .deleteProduct(token, id)
+      .then((response) => {
+        router.refresh();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   useEffect(() => {
     getUserLoginAccessToken()
       .then((token) => {
         console.log(`Token Recebido: ${token}`);
-        
-        Api.private
-          .getProducts(token)
-          .then((response) => {
-            setProducts(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        setToken(token);
       })
       .catch((error) => {
         console.error(error);
         router.replace("/auth/login");
       });
   }, []);
+
+  useEffect(() => {
+    Api.private
+      .getProducts(token)
+      .then((response) => {
+        setProducts(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [token]);
 
   return (
     <Box
@@ -114,10 +129,12 @@ export default function SectionUserProducts() {
         {products.map(({ name, description, id }, index) => (
           <ProductCard
             key={index}
+            id={id}
             name={name}
             description={description}
             picture={""}
             link={`produtos/${id}`}
+            onDelete={onDeleteProduct}
           />
         ))}
       </Box>
