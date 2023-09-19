@@ -17,7 +17,7 @@ export default function SectionUserProducts() {
     getUserLoginAccessToken()
       .then((token) => {
         console.log(`Token Recebido: ${token}`);
-
+        
         Api.private
           .getProducts(token)
           .then((response) => {
