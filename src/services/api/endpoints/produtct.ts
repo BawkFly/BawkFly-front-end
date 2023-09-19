@@ -16,6 +16,25 @@ export type ResponseGetProduct = {
   created_at: string;
 };
 
+export async function getProduct(
+  accessToken: string,
+  id: string
+): Promise<ResponseGetProduct> {
+  const response = await fetch(`${API_BASE_URL}/product/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-cache",
+  });
+
+  if (!response.ok) throw new Error("Error em Get Products");
+
+  const rawData = await response.json();
+
+  return rawData as ResponseGetProduct;
+}
+
 export async function getProducts(
   accessToken: string
 ): Promise<Array<ResponseGetProduct>> {
