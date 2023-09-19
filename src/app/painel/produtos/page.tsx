@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 
 export default function PageProducts() {
   return (
+      <SectionUserProducts />
     <main>
       <SectionUserProducts userProducts={[]} />
       <Link href="/painel/produtos/add-produto">

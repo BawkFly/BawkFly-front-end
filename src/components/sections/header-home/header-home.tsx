@@ -13,7 +13,7 @@ export default function SectionHeaderHome(data: DataSectionHeaderHome) {
             <Link href="/painel">Ir para Painel</Link>
           </li>
           <li>
-            <Link href="/auth">Ir para Loggin</Link>
+            <Link href="/auth/login">Ir para Loggin</Link>
           </li>
         </ul>
       </Container>
