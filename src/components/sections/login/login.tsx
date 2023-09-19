@@ -9,11 +9,16 @@ import {
 } from "@/helpers/validation/validation";
 import ElementFormInput from "@/components/elements/form-input/form-input";
 import { Button } from "@mui/material";
+import Api from "@/services/api/api";
+import { setUserLoginTokens } from "@/services/auth/auth";
+import { useRouter } from 'next/navigation'
 
 export type DataSectionLogin = {};
 
 export default function SectionLogin(data: DataSectionLogin) {
   const {} = data;
+
+  const router = useRouter();
 
   type FormsField = {
     value: string;
@@ -73,6 +78,18 @@ export default function SectionLogin(data: DataSectionLogin) {
       setForms({ email, password });
       return;
     }
+
+    Api.public
+      .getUserLogin({ email: email.value, password: password.value })
+      .then((response) => {
+        console.log(response);
+        const {access_token,refresh_token,token_type} = response;
+        setUserLoginTokens(access_token,token_type,refresh_token);
+        router.replace("/painel")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

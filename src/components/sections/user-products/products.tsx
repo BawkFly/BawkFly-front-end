@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { ProductCard } from "./productCard";
 import { api } from "@/services/api";
+import { getUserLoginAccessToken } from "@/services/auth/auth";
+import { useRouter } from "next/navigation";
 
 const productsss = [
   {
@@ -45,9 +47,20 @@ const productsss = [
 ];
 
 export default function SectionUserProducts() {
+  const router = useRouter();
+
   const [products, setProducts] = useState(productsss);
 
   useEffect(() => {
+    getUserLoginAccessToken()
+      .then((token) => {
+        console.log(`Token Recebido: ${token}`);
+      })
+      .catch((error) => {
+        console.error(error);
+        router.replace("/auth/login");
+      });
+
     async function getProducts() {
       const data = await api.get("/product");
 
