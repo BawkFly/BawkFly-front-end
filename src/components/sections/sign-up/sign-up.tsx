@@ -12,6 +12,7 @@ import {
   phoneNumberIsValid,
 } from "@/helpers/validation/validation";
 import { phoneNumberMask } from "@/helpers/mask/maks";
+import Api from "@/services/api/api";
 
 export type DataSectionSignUp = {};
 
@@ -68,6 +69,19 @@ export default function SectionSignUp(data: DataSectionSignUp) {
       setForm({ name, email, phoneNumber, password, confirmPassword });
       return;
     }
+
+    Api.public
+      .postUserRegister({
+        name: name.value,
+        email: email.value,
+        password: password.value,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
