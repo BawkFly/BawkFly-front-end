@@ -8,10 +8,7 @@ import { Switch, Button } from "@mui/material";
 import dynamic from "next/dynamic";
 import ReactQuill from "react-quill";
 
-const ReactQuillNoSSR = dynamic(
-  () => import('react-quill'),
-  { ssr: false }
-)
+const ReactQuillNoSSR = dynamic(() => import("react-quill"), { ssr: false });
 
 const Categorys = ["Texto", "Imagem", "Video", "Outro"];
 
@@ -180,38 +177,22 @@ export default function ElementFormProduct(data: DataElementFormProduct) {
               }}
               modules={{
                 toolbar: [
-                  [{ header: "1" }, { header: "2" }, { font: [] }],
-                  [{ size: [] }],
-                  ["bold", "italic", "underline", "strike", "blockquote"],
-                  [
-                    { list: "ordered" },
-                    { list: "bullet" },
-                    { indent: "-1" },
-                    { indent: "+1" },
-                  ],
-                  ["link", "image", "video"],
+                  ["bold", "italic", "underline", "strike"],
+                  ["blockquote", "code-block"],
+                  ["link", "image"],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  [{ script: "sub" }, { script: "super" }],
+                  [{ indent: "-1" }, { indent: "+1" }],
+                  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                  [{ color: [] }, { background: [] }],
+                  [{ font: [] }],
+                  [{ align: [] }],
                   ["clean"],
                 ],
                 clipboard: {
                   matchVisual: false,
                 },
               }}
-              formats={[
-                "header",
-                "font",
-                "size",
-                "bold",
-                "italic",
-                "underline",
-                "strike",
-                "blockquote",
-                "list",
-                "bullet",
-                "indent",
-                "link",
-                "image",
-                "video",
-              ]}
             />
           </Grid>
           <Grid item xs={12} className={style.containerSwitch}>

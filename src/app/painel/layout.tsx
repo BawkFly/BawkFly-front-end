@@ -11,7 +11,12 @@ export default function LayoutDashboard(data: DataLayoutDashboard) {
   return (
     <main className={style.mainLayout}>
       <SectionMenuDashBoard />
-      <div className={style.content}>{children}</div>
+      <div
+        style={{ backgroundColor: "#151515", height: "100%" }}
+        className={style.content}
+      >
+        {children}
+      </div>
     </main>
   );
 }

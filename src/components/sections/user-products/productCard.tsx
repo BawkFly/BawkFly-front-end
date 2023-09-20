@@ -19,11 +19,13 @@ export default function ProductCard(data: ProductCardProps) {
 
   return (
     <Card sx={{ width: "auto", borderRadius: "12px", margin: "10px" }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image="https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg"
-      />
+      <Link href={`/painel/produtos/visualizar/${id}`} title={`Ir Ver ${name}`}>
+        <CardMedia
+          component="img"
+          height="140"
+          image="https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg"
+        />
+      </Link>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {name}
