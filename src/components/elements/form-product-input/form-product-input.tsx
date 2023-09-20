@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent } from "react";
 import style from "./form-product-input.module.scss";
 

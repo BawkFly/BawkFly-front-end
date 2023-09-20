@@ -1,8 +1,9 @@
 import SectionAddProduct from "@/components/sections/add-product/add-product";
+import style from "./page.module.scss";
 
 export default function PageAddProduct() {
   return (
-    <main style={{backgroundColor:"#151515", height:"100%"}}>
+    <main className={style.main}>
       <SectionAddProduct />
     </main>
   );

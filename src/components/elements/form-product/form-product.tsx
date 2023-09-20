@@ -1,9 +1,17 @@
+"use client";
+
 import style from "./form-product.module.scss";
 import { FormControlLabel, Grid } from "@mui/material";
 import { ChangeEvent, FormEvent } from "react";
-import ReactQuill from "react-quill";
 import ElementFormProductInput from "../form-product-input/form-product-input";
 import { Switch, Button } from "@mui/material";
+import dynamic from "next/dynamic";
+import ReactQuill from "react-quill";
+
+const ReactQuillNoSSR = dynamic(
+  () => import('react-quill'),
+  { ssr: false }
+)
 
 const Categorys = ["Texto", "Imagem", "Video", "Outro"];
 
@@ -161,7 +169,7 @@ export default function ElementFormProduct(data: DataElementFormProduct) {
             />
           </Grid>
           <Grid item xs={12}>
-            <ReactQuill
+            <ReactQuillNoSSR
               className={style.richText}
               value={markdown.value}
               onChange={(event) => {

@@ -14,7 +14,7 @@ interface ProductCardProps {
   onDelete: (id: string) => void;
 }
 
-export default function (data: ProductCardProps) {
+export default function ProductCard(data: ProductCardProps) {
   const { id, name, description, picture, onDelete, link } = data;
 
   return (
