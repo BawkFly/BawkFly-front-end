@@ -4,7 +4,7 @@ import style from "./add-product.module.scss";
 import { Container } from "@mui/material";
 import ElementFormProduct, {
   FormProductValues,
-} from "@/components/form-product/form-product";
+} from "@/components/elements/form-product/form-product";
 import Api from "@/services/api/api";
 import { getUserLoginAccessToken } from "@/services/auth/auth";
 import { BodyPostProduct } from "@/services/api/endpoints/produtct";

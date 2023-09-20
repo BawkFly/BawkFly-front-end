@@ -1,0 +1,15 @@
+#SectionViewProductOwner {
+  padding: 80px;
+  background-color: "#151515";
+  height: 100%;
+  color: whitesmoke;
+  .title {
+    font-size: 30px;
+  }
+  .image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+}

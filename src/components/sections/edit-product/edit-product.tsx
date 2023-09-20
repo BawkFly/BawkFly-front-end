@@ -3,7 +3,7 @@
 import style from "./edit-product.module.scss";
 import ElementFormProduct, {
   FormProductValues,
-} from "@/components/form-product/form-product";
+} from "@/components/elements/form-product/form-product";
 import Api from "@/services/api/api";
 import { getUserLoginAccessToken } from "@/services/auth/auth";
 import { Container } from "@mui/material";

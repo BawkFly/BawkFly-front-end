@@ -2,7 +2,7 @@ import style from "./form-product.module.scss";
 import { FormControlLabel, Grid } from "@mui/material";
 import { ChangeEvent, FormEvent } from "react";
 import ReactQuill from "react-quill";
-import ElementFormProductInput from "../elements/form-product-input/form-product-input";
+import ElementFormProductInput from "../form-product-input/form-product-input";
 import { Switch, Button } from "@mui/material";
 
 const Categorys = ["Texto", "Imagem", "Video", "Outro"];
