@@ -1,5 +1,6 @@
 import ThemeRegistry from "@/components/structs/ThemeRegistry/ThemeRegistry";
 import "./globals.scss";
+import 'react-quill/dist/quill.snow.css'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 

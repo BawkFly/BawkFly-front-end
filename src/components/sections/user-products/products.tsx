@@ -134,7 +134,7 @@ export default function SectionUserProducts() {
             name={name}
             description={description}
             picture={""}
-            link={`produtos/${id}`}
+            link={`produtos/editar/${id}`}
             onDelete={onDeleteProduct}
           />
         ))}

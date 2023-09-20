@@ -1,0 +1,17 @@
+#ElementFormProduct {
+  .containerSwitch {
+    color: white;
+    .textSwitch {
+      font-size: 18px;
+      margin-right: 15px;
+    }
+  }
+  .richText {
+    color: whitesmoke;
+  }
+
+  .containerButtons{
+    display: flex;
+    justify-content: space-between;
+  }
+}

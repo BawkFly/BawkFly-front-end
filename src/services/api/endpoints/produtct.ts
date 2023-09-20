@@ -1,4 +1,3 @@
-import { type } from "os";
 import { API_BASE_URL } from "../api";
 
 export type ResponseGetProduct = {
@@ -8,7 +7,7 @@ export type ResponseGetProduct = {
   sallerInName: string;
   sallerInEmail: string;
   sallerInPhone: string;
-  category_id: string;
+  category: string;
   id: string;
   owner_id: string;
   description: string;
