@@ -13,7 +13,7 @@ type Body = {
 };
 
 export async function postUserRegister(body: Body): Promise<CodeResponse> {
-  const response = await fetch(`${API_BASE_URL}/user/register`, {
+  const response = await fetch(`${API_BASE_URL}/user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
