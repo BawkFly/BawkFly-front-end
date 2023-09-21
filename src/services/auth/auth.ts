@@ -57,6 +57,12 @@ export async function getUserLoginAccessToken(): Promise<string> {
   return token;
 }
 
+export const handleLogout = () => {
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("token_type");
+  localStorage.removeItem("refresh_token");
+};
+
 const auth = {
   setUserLoginTokens,
   getUserLoginAccessToken,

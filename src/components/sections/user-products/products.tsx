@@ -127,7 +127,7 @@ export default function SectionUserProducts() {
           width: "100%",
           minHeight: "70vh",
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
         }}
       >
         {products.map(({ name, description, id }, index) => (
