@@ -1,32 +1,9 @@
+import { handleLogout } from "@/services/auth/auth";
+
 export default function PageDashboard() {
   return (
     <main>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
+      <button onClick={handleLogout}>logout</button>
     </main>
   );
 }
