@@ -8,6 +8,7 @@ import { getUserLoginAccessToken } from "@/services/auth/auth";
 import { useRouter } from "next/navigation";
 import Api from "@/services/api/api";
 import { ResponseGetProduct } from "@/services/api/endpoints/produtct";
+import Link from "next/link";
 
 export default function SectionUserProducts() {
   const router = useRouter();
@@ -114,9 +115,11 @@ export default function SectionUserProducts() {
           </Box>
         </Box>
         <Box>
+          <Link href={"/painel/produtos/add-produto"} title="criar produto">
           <Button variant="contained" startIcon={<AddCircleIcon />}>
             CRIAR NOVO
           </Button>
+          </Link>
         </Box>
       </Box>
       <Box
@@ -134,7 +137,7 @@ export default function SectionUserProducts() {
             name={name}
             description={description}
             picture={""}
-            link={`produtos/${id}`}
+            link={`produtos/editar/${id}`}
             onDelete={onDeleteProduct}
           />
         ))}

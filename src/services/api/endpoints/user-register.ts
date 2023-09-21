@@ -21,7 +21,7 @@ export async function postUserRegister(body: Body): Promise<CodeResponse> {
     body: JSON.stringify(body),
     cache: "no-store",
   });
-
+  console.log(response)
   if (!response.ok) throw new Error(response.statusText);
 
   return CodeResponse.OK;
